@@ -34,4 +34,4 @@ $ node index --action encode --shift 5 --input input.txt --output output.txt
 
 `input.txt` Lorem Ipsum is simply dummy text
 
-`output.txt` Yberz Vcfhz vf fvzcyl qhzzl grkg
+`output.txt` Qtwjr Nuxzr nx xnruqd izrrd yjcy
