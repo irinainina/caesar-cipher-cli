@@ -1,13 +1,14 @@
 const stream = require('stream');
 const argv = require('./argv');
-const fs = require('fs');
 const path = require('path');
 const caesar = require('./caesar');
+const readStream = require('./readStream');
+const writeStream = require('./writeStream');
 
-const pathToRead = path.join(__dirname, argv.input);
-const pathToWrite = path.join(__dirname, argv.output);
+const pathToRead = argv.input ? path.resolve(argv.input) : null;
+const pathToWrite = argv.output ? path.resolve(argv.output) : null;
 
-class UpperCaseTransformer extends stream.Transform {
+class streamTransformer extends stream.Transform {
   _transform(data, encoding, callback) {
     this.push(caesar(data.toString()));
     callback();
@@ -15,11 +16,14 @@ class UpperCaseTransformer extends stream.Transform {
 }
 
 const streamTransform = () => {
-  if(!argv.action || !argv.shift || !argv.input || !argv.output) return;
-  const read = fs.createReadStream(pathToRead);
-  const transform = new UpperCaseTransformer();
-  const write = fs.createWriteStream(pathToWrite, { flags: 'a' });
+  if (!argv.action || !argv.shift) {
+    process.stderr.write('Required parameters are not specified.\n');
+    process.exit(1);
+  }
+  const read = readStream(pathToRead);
+  const transform = new streamTransformer();
+  const write = writeStream(pathToWrite);
   read.pipe(transform).pipe(write);
 };
 
-module.exports = streamTransform();
+module.exports = streamTransform;

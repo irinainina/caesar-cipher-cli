@@ -1,14 +1,14 @@
 {
   "name": "caesar",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node index"
   },
   "keywords": [],
-  "author": "",
+  "author": "irinainina",
   "license": "ISC",
-  "description": "",
+  "description": "CLI Tool to encode and decode text using",
   "dependencies": {
     "minimist": "^1.2.5"
   }
